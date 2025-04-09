@@ -1,0 +1,30 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Carts\" />
+    <Folder Include="Customers\" />
+    <Folder Include="Inventories\" />
+    <Folder Include="Categories\" />
+    <Folder Include="Deliveries\" />
+    <Folder Include="Banner\" />
+    <Folder Include="Tags\" />
+    <Folder Include="Promotions\" />
+    <Folder Include="Vouchers\" />
+    <Folder Include="Users\" />
+    <Folder Include="ShopBranchs\" />
+    <Folder Include="Orders\" />
+    <Folder Include="Common\" />
+    <Folder Include="Products\" />
+  </ItemGroup>
+
+</Project>
