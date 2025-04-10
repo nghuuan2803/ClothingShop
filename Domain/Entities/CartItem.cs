@@ -1,12 +1,10 @@
 ﻿namespace Domain.Entities
 {
-    public class OrderItem
+    public class CartItem
     {
-        public string OrderId { get; set; }
-        public Order? Order { get; set; }
+        public string CustomerId { get; set; } = string.Empty;
         public int ProductVariantId { get; set; }
         public ProductVariant? ProductVariant { get; set; }
-        public decimal Price { get; set; }
         public int Quantity { get; set; }
     }
 }
