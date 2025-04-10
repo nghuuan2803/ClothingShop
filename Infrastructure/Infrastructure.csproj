@@ -13,7 +13,8 @@
   <ItemGroup>
     <Folder Include="EMailServices\" />
     <Folder Include="Auth\" />
-    <Folder Include="PaymentServices\" />
+    <Folder Include="PaymentServices\MoMo\" />
+    <Folder Include="PaymentServices\VnPay\" />
   </ItemGroup>
 
 </Project>
