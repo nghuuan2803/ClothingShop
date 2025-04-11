@@ -1,4 +1,4 @@
-﻿namespace Shared
+﻿namespace Shared.Utils
 {
     public class PaginatedData<T>
     {

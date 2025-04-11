@@ -7,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Data;
 using Persistence.Repositories;
-using System.Data;
 using System.Text;
 
 namespace Persistence

@@ -2,7 +2,7 @@
 using Domain;
 using Microsoft.EntityFrameworkCore;
 using Persistence.Data;
-using Shared;
+using Shared.Utils;
 using System.Linq.Expressions;
 
 namespace Persistence.Repositories

@@ -1,5 +1,5 @@
 ﻿using Domain;
-using Shared;
+using Shared.Utils;
 using System.Linq.Expressions;
 
 namespace Contracts.Repositories

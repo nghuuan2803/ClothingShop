@@ -12,9 +12,9 @@
 
   <ItemGroup>
     <Folder Include="Carts\" />
+    <Folder Include="Categories\Commands\" />
     <Folder Include="Customers\" />
     <Folder Include="Inventories\" />
-    <Folder Include="Categories\" />
     <Folder Include="Deliveries\" />
     <Folder Include="Banner\" />
     <Folder Include="Tags\" />
@@ -30,6 +30,7 @@
   <ItemGroup>
     <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
   </ItemGroup>
 

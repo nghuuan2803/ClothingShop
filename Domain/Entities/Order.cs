@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entities
 {
     public class Order : BaseEntity<string>
     {
@@ -15,6 +17,7 @@
         public string? VoucherId { get; set; }
         public OrderStatus Status { get; set; }
         public string? HandlerId { get; set; }
-        //public IUser? Handler { get; set; }
+        [NotMapped]
+        public IUser? Handler { get; set; }
     }
 }
