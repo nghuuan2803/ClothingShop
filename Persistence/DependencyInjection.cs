@@ -1,10 +1,12 @@
-﻿using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using Contracts.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using Persistence.Data;
+using Persistence.Repositories;
 using System.Data;
 using System.Text;
 
@@ -64,6 +66,7 @@ namespace Persistence
                 };
             });
 
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 
             return services;
         }
