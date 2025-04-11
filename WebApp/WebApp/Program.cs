@@ -1,6 +1,6 @@
 using WebApp.Client.Pages;
 using WebApp.Components;
-
+using Persistence;
 namespace WebApp;
 
 public class Program
@@ -14,6 +14,7 @@ public class Program
             .AddInteractiveServerComponents()
             .AddInteractiveWebAssemblyComponents();
 
+        builder.Services.AddPersistence(builder.Configuration);
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.

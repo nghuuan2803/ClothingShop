@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class ShippingInfo
+    public class ShippingInfo : BaseEntity<int>
     {
         public int ShopId { get; set; }
         public int OrderId { get; set; }

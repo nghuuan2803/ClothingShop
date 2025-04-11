@@ -1,7 +1,10 @@
-﻿namespace Domain
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain
 {
     public abstract class DefaultEntity<TKey> : IEntity
     {
+        [Key]
         public TKey Id { get; set; }
         public DateTimeOffset CreatedAt { get; set; }
     }

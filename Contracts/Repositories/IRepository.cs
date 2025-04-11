@@ -19,9 +19,12 @@ namespace Contracts.Repositories
             string? orderBy = null,
             CancellationToken cancellationToken = default);
         Task<TEntity> AddAsync(TEntity entity);
+        Task<TEntity> AddRangeAsync(IEnumerable<TEntity> entities);
         Task<TEntity> UpdateAsync(TEntity entity);
+        Task<TEntity> UpdateRangeAsync(IEnumerable<TEntity> entities);
         Task<bool> DeleteAsync(object id);
         Task<bool> DeleteAsync(TEntity entity);
+        Task<bool> DeleteRangeAsync(IEnumerable<TEntity> entities);
         Task<bool> ExistsAsync(object id);
         Task<bool> SaveChangesAsync(CancellationToken cancellationToken = default);
 

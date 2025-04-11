@@ -15,6 +15,6 @@
         public string? VoucherId { get; set; }
         public OrderStatus Status { get; set; }
         public string? HandlerId { get; set; }
-        public IUser? Handler { get; set; }
+        //public IUser? Handler { get; set; }
     }
 }

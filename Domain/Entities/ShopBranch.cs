@@ -8,7 +8,7 @@
         public string? PhoneNumber { get; set; }
         public string? Email { get; set; }
         public string? ManagerId { get; set; }
-        public IUser? Manager { get; set; }
+        //public IUser? Manager { get; set; }
         public ICollection<Inventory>? Inventories { get; set; }
         public bool IsDeleted { get; set; }
     }
