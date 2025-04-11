@@ -2,13 +2,19 @@
 {
     public class Order : BaseEntity<string>
     {
-        public decimal Amount { get; set; }
         public string CustomerId { get; set; } = string.Empty;
+        public string? CustomerName { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string ShippingAdress { get; set; } = string.Empty;
         public Customer? Customer { get; set; }
-        public string? VoucherId { get; set; }
-        public int? PromotionId { get; set; }
         public int PaymentMethod { get; set; }
-        public int ShippingId { get; set; }
+        public decimal Discount { get; set; }
+        public decimal ShipFee { get; set; }
+        public decimal Amount { get; set; }
+        public int? PromotionId { get; set; }
+        public string? VoucherId { get; set; }
         public int Status { get; set; }
+        public string? HandlerId { get; set; }
+        public IUser? Handler { get; set; }
     }
 }

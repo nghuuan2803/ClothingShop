@@ -5,6 +5,10 @@
         public string Name { get; set; } = string.Empty;
         public string Address { get; set; } = string.Empty;
         public string? Location { get; set; }
+        public string? PhoneNumber { get; set; }
+        public string? Email { get; set; }
+        public string? ManagerId { get; set; }
+        public IUser? Manager { get; set; }
         public ICollection<Inventory>? Inventories { get; set; }
     }
 }
