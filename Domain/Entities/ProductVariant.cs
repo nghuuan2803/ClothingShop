@@ -1,4 +1,4 @@
-﻿using Domain.ValueObjects;
+﻿using Shared.Contants;
 namespace Domain.Entities
 {
     public class ProductVariant : BaseEntity<int>

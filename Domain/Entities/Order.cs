@@ -7,13 +7,13 @@
         public string? PhoneNumber { get; set; }
         public string ShippingAdress { get; set; } = string.Empty;
         public Customer? Customer { get; set; }
-        public int PaymentMethod { get; set; }
+        public PaymentMethod PaymentMethod { get; set; }
         public decimal Discount { get; set; }
         public decimal ShipFee { get; set; }
         public decimal Amount { get; set; }
         public int? PromotionId { get; set; }
         public string? VoucherId { get; set; }
-        public int Status { get; set; }
+        public OrderStatus Status { get; set; }
         public string? HandlerId { get; set; }
         public IUser? Handler { get; set; }
     }

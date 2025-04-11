@@ -7,7 +7,8 @@
         string? PhoneNumber { get; set; }
         string UserName { get; set; }
         DateTime? DoB { get; set; }
-        int? Gender { get; set; }
+        Gender? Gender { get; set; }
         string? AvatarUrl { get; set; }
+        public int RewardPoint { get; set; }
     }
 }

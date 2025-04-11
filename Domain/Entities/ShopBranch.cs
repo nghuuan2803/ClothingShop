@@ -10,5 +10,6 @@
         public string? ManagerId { get; set; }
         public IUser? Manager { get; set; }
         public ICollection<Inventory>? Inventories { get; set; }
+        public bool IsDeleted { get; set; }
     }
 }
