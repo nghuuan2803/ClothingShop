@@ -1,8 +1,8 @@
-﻿using Application.Categories.Commands;
+﻿using Application.Features.Categories.Commands;
 using FluentValidation;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Requests;
+using Shared.Categories;
 
 namespace WebApp.Endpoints
 {
@@ -21,7 +21,6 @@ namespace WebApp.Endpoints
             }
             catch (ValidationException ex)
             {
-                // Trả về lỗi validate nếu có
                 return BadRequest(ex.Errors.Select(e => e.ErrorMessage));
             }
         }

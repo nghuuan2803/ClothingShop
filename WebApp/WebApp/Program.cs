@@ -1,5 +1,5 @@
 using WebApp.Components;
-using Persistence;
+using Infrastructure;
 using Application;
 using Microsoft.OpenApi.Models;
 namespace WebApp;
@@ -44,7 +44,7 @@ public class Program
         });
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddControllers();
-        builder.Services.AddPersistence(builder.Configuration);
+        builder.Services.AddInfrasutructure(builder.Configuration);
         builder.Services.AddApplication();
 
 

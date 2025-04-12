@@ -7,34 +7,34 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Contracts\Contracts.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Carts\" />
-    <Folder Include="Categories\Queries\" />
-    <Folder Include="Customers\" />
-    <Folder Include="Inventories\" />
-    <Folder Include="Deliveries\" />
-    <Folder Include="Banner\" />
-    <Folder Include="Tags\" />
-    <Folder Include="Promotions\" />
-    <Folder Include="Vouchers\" />
-    <Folder Include="Users\" />
-    <Folder Include="ShopBranchs\" />
-    <Folder Include="Orders\" />
-    <Folder Include="Products\" />
+    <Folder Include="Features\Carts\" />
+    <Folder Include="Features\Categories\Queries\" />
+    <Folder Include="Features\Inventories\" />
+    <Folder Include="Features\Shippings\" />
+    <Folder Include="Features\Banner\" />
+    <Folder Include="Services\Logistics\" />
+    <Folder Include="Services\Payments\" />
+    <Folder Include="Services\Notifications\" />
+    <Folder Include="Features\Tags\" />
+    <Folder Include="Features\Promotions\" />
+    <Folder Include="Features\Vouchers\" />
+    <Folder Include="Features\ShopBranchs\" />
+    <Folder Include="Features\Orders\" />
+    <Folder Include="Features\Products\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.11.0" />
     <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="11.11.0" />
-    <PackageReference Include="Google.Apis.Auth" Version="1.69.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
     <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.4" />
     <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="9.0.4" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Domain\Domain.csproj" />
   </ItemGroup>
 
 </Project>

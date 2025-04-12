@@ -5,6 +5,7 @@
         string Id { get; set; }
         string? Email { get; set; }
         string? PhoneNumber { get; set; }
+        string? FullName { get; set; }
         string? UserName { get; set; }
         DateTime? DoB { get; set; }
         Gender? Gender { get; set; }
