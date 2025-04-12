@@ -1,6 +1,7 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Shared.Users;
 
 namespace Infrastructure.Persistence.Repositories
 {
@@ -11,6 +12,11 @@ namespace Infrastructure.Persistence.Repositories
         public UserRepository(AppDbContext dbContext)
         {
             _dbContext = dbContext;
+        }
+
+        public Task<string> AddUserAsync(AddUserReq request)
+        {
+            throw new NotImplementedException();
         }
 
         public async Task<IEnumerable<IUser>> GetAllAsync()
@@ -36,6 +42,11 @@ namespace Infrastructure.Persistence.Repositories
         public async Task<IUser> GetByUserNameAsync(string userName)
         {
             return await _dbContext.Users.SingleOrDefaultAsync(p => p.UserName == userName);
+        }
+
+        public Task UpdateUserAsync()
+        {
+            throw new NotImplementedException();
         }
     }
 }

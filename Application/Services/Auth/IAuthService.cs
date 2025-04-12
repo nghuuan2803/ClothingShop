@@ -1,4 +1,5 @@
-﻿using Shared.Auth;
+﻿using Domain.Entities;
+using Shared.Auth;
 
 namespace Application.Services.Auth
 {
@@ -8,5 +9,7 @@ namespace Application.Services.Auth
         Task<bool> LogoutAsync(string userName);
         Task<AuthRes> RegisterAsync(RegisterReq request);
         Task<AuthRes> RefreshTokensAsync(string refreshToken);
+        Task<string> GenerateAccessTokenAsync(IUser user);
+        string GenerateRefreshToken();
     }
 }
