@@ -1,24 +1,18 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
+using FluentValidation;
+using Application.Common.Behaviours;
+using MediatR;
 
 namespace Application
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddCommandHandlers(this IServiceCollection services)
+        public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            var assembly = typeof(ICommand<,>).Assembly;
-            var commandTypes = assembly
-                .GetTypes()
-                .Where(t => !t.IsAbstract && !t.IsInterface)
-                .SelectMany(t => t.GetInterfaces()
-                    .Where(i => i.IsGenericType && i.GetGenericTypeDefinition() == typeof(ICommand<,>))
-                    .Select(i => new { Interface = i, Implementation = t }));
-
-            foreach (var cmd in commandTypes)
-            {
-                services.AddScoped(cmd.Interface, cmd.Implementation);
-            }
-
+            services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
+            services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
             return services;
         }
     }

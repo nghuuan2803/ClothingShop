@@ -1,6 +1,6 @@
-using WebApp.Client.Pages;
 using WebApp.Components;
 using Persistence;
+using Application;
 using Microsoft.OpenApi.Models;
 namespace WebApp;
 
@@ -45,6 +45,9 @@ public class Program
         builder.Services.AddEndpointsApiExplorer();
         builder.Services.AddControllers();
         builder.Services.AddPersistence(builder.Configuration);
+        builder.Services.AddApplication();
+
+
         var app = builder.Build();
 
         // Configure the HTTP request pipeline.
