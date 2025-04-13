@@ -6,6 +6,6 @@ namespace Domain.Entities
     {
         [Key]
         public TKey Id { get; set; }
-        public DateTimeOffset CreatedAt { get; set; }
+        public DateTimeOffset CreatedAt { get; set; } = DateTimeOffset.UtcNow;
     }
 }

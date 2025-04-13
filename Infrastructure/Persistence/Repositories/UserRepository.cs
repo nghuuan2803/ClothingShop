@@ -19,7 +19,7 @@ namespace Infrastructure.Persistence.Repositories
 
         public async Task<IEnumerable<IUser>> GetAllAsync()
         {
-            return await _dbContext.Users.ToListAsync();
+            return await _dbContext.Users.Where(p=>!p.IsDeleted).ToListAsync();
         }
 
         public async Task<IUser> GetByEmailAsync(string email)

@@ -1,4 +1,6 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Domain.Entities
 {
     public class Product : BaseEntity<int>
     {
@@ -12,6 +14,8 @@
         public Gender Gender { get; set; } = Gender.Male;
         public Category? Category { get; set; }
         public bool IsFeatured { get; set; } // Cho carousel sản phẩm nổi bật
+        public bool IsDeleted { get; set; }
+        [NotMapped]
         public IEnumerable<string>? Images { get; set; } = [];
         public virtual ICollection<ProductTag>? ProductTags { get; set; }
         public virtual ICollection<ProductVariant>? Variants { get; set; } // Danh sách biến thể

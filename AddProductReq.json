@@ -1,0 +1,31 @@
+{
+  "name": "ao thun poro",
+  "description": "string",
+  "material": "cotton",
+  "price": 200000,
+  "categoryId": 1,
+  "boxSize": 0,
+  "boxWeight": 0,
+  "gender": 0,
+  "isFeatured": true,
+  "variants": [
+    {
+      "productId": 0,
+      "size": "S",
+      "colorId": 1,
+      "imageUrls": null
+    },
+    {
+      "productId": 0,
+      "size": "M",
+      "colorId": 1,
+      "imageUrls": null
+    },
+    {
+      "productId": 0,
+      "size": "L",
+      "colorId": 1,
+      "imageUrls": null
+    }
+  ]
+}

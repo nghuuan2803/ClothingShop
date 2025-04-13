@@ -1,6 +1,5 @@
 ﻿using Application.Features.Auth;
 using Application.Features.Users.Commands;
-using Application.Services.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Auth;

@@ -1,0 +1,13 @@
+{
+  "id": 1,
+  "name": "Ao thun poro",
+  "description": "",
+  "material": "cotton 100%",
+  "price": 150000,
+  "categoryId": 1,
+  "boxSize": 100,
+  "boxWeight": 300,
+  "gender": 0,
+  "isFeatured": true,
+  "tags": []
+}

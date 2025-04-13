@@ -9,6 +9,7 @@ namespace Domain.Entities
         public string? PhoneNumber { get; set; }
         public string? Address { get; set; }
         public bool IsRegistered { get; set; }
+        public bool IsDeleted { get; set; }
         public string? UserId { get; set; }
         [NotMapped]
         public IUser? User { get; set; }

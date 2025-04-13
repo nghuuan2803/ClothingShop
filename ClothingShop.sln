@@ -17,11 +17,22 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp.Client", "WebApp\Web
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documments", "documments", "{80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "documents", "documents", "{80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{F548F79C-DD2E-42F2-9B43-52C7BDA9FE45}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test", "Test\Test.csproj", "{B83AC022-362F-48AE-AC09-99687E46A00C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Products", "Products", "{C86548E4-E841-43CF-840E-47D2A2FC054F}"
+	ProjectSection(SolutionItems) = preProject
+		AddProductReq.json = AddProductReq.json
+		UpdateProductReq.json = UpdateProductReq.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Issues", "Issues", "{45C07096-5F28-44A5-B666-01FBD080F524}"
+	ProjectSection(SolutionItems) = preProject
+		ISSUES.md = ISSUES.md
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -69,6 +80,8 @@ Global
 		{F5476F30-2374-40FF-9695-6E2FF4259A7D} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{D645DC54-9C49-42CC-99D7-27014D12FD0F} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{B83AC022-362F-48AE-AC09-99687E46A00C} = {F548F79C-DD2E-42F2-9B43-52C7BDA9FE45}
+		{C86548E4-E841-43CF-840E-47D2A2FC054F} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
+		{45C07096-5F28-44A5-B666-01FBD080F524} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A36CC13-8A45-42B6-A8BF-77DF8783328F}

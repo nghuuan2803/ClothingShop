@@ -1,4 +1,5 @@
 ﻿using Application.Services.Auth;
+using Domain.Entities;
 using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
@@ -71,6 +72,7 @@ namespace Infrastructure
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
 
             return services;
         }

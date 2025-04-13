@@ -8,7 +8,7 @@ namespace Infrastructure.Persistence.Repositories
 {
     public class Repository<T> : IRepository<T> where T : class, IEntity
     {
-        private readonly AppDbContext _dbContext;
+        protected readonly AppDbContext _dbContext;
         protected readonly DbSet<T> dbSet;
 
         public Repository(AppDbContext dbContext)

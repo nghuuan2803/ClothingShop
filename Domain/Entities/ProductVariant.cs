@@ -1,4 +1,5 @@
 ﻿using Shared.Contants;
+using System.ComponentModel.DataAnnotations.Schema;
 namespace Domain.Entities
 {
     public class ProductVariant : BaseEntity<int>
@@ -9,6 +10,8 @@ namespace Domain.Entities
         public int ColorId { get; set; }
         public Color? Color { get; set; }
         public string? ImageUrls { get; set; }
+        public bool IsDeleted { get; set; }
+        [NotMapped]
         public IEnumerable<string>? Images { get; set; } = [];
         public virtual ICollection<Inventory>? Inventories { get; set; } // Tồn kho theo chi nhánh
     }

@@ -1,6 +1,6 @@
 ﻿namespace Domain.Entities
 {
-    public class ProductTag
+    public class ProductTag : IEntity
     {
         public int ProductId { get; set; }
         public int TagId { get; set; }
