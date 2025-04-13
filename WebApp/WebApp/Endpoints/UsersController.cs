@@ -3,7 +3,6 @@ using Application.Features.Users.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Shared.Users;
 
 namespace WebApp.Endpoints
 {
@@ -17,6 +16,7 @@ namespace WebApp.Endpoints
         {
             _mediator = mediator;
         }
+
         [Authorize]
         [HttpGet]
         public async Task<IActionResult> GetAll(CancellationToken cancellationToken)
@@ -24,8 +24,9 @@ namespace WebApp.Endpoints
             var res = await _mediator.Send(new GetAllUsersQuery(),cancellationToken);
             return Ok(res);
         }
+
         [Authorize]
-        [HttpGet("guests")]
+        [HttpGet("customers")]
         public async Task<IActionResult> GetAllGuest(CancellationToken cancellationToken)
         {
             var res = await _mediator.Send(new GetAllGuestQuery(), cancellationToken);
@@ -36,13 +37,6 @@ namespace WebApp.Endpoints
         public async Task<IActionResult> AddGuest([FromBody] AddGuestCommand command)
         {
             var res = await _mediator.Send(command);
-            return Ok(res);
-        }
-        [HttpPost]
-        public async Task<IActionResult> AddUser([FromBody] AddUserReq request)
-        {
-            
-            var res = await _mediator.Send(new CreateUserCommand { Request = request});
             return Ok(res);
         }
     }

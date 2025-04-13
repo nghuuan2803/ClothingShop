@@ -8,6 +8,7 @@ using Google.Apis.Auth;
 using Shared.Auth;
 using Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Features.Auth;
 
 namespace Infrastructure.Services.Auth.LoginStrategies
 {
@@ -28,7 +29,7 @@ namespace Infrastructure.Services.Auth.LoginStrategies
             _configuration = serviceProvider.GetRequiredService<IConfiguration>();
         }
 
-        public async Task<IUser> Execute(LoginReq request)
+        public async Task<IUser> Execute(LoginCommand request)
         {
             var config = _configuration.GetSection("Authentication:Google");
             string clientId = config["ClientId"];

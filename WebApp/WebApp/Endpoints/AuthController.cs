@@ -1,4 +1,5 @@
-﻿using Application.Features.Users.Commands;
+﻿using Application.Features.Auth;
+using Application.Features.Users.Commands;
 using Application.Services.Auth;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -16,27 +17,20 @@ namespace WebApp.Endpoints
 
         public AuthController(IAuthService authService, IMediator mediator)
         {
-            _authService = authService ?? throw new ArgumentNullException(nameof(authService));
-            _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            _authService = authService;
+            _mediator = mediator;
         }
 
-        /// <summary>
-        /// Đăng nhập bằng mật khẩu, Google web, hoặc Google mobile.
-        /// </summary>
-        /// <param name="request">Thông tin đăng nhập (GuestId, LoginType, Credential).</param>
-        /// <param name="cancellationToken">Token hủy bỏ.</param>
-        /// <returns>Access token và refresh token nếu thành công.</returns>
         [HttpPost("login")]
-        [ProducesResponseType(typeof(AuthRes), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Login([FromBody] LoginReq request, CancellationToken cancellationToken)
+        public async Task<IActionResult> DefaultLogin([FromBody] DefaultLoginReq request)
         {
-            if (request == null || string.IsNullOrEmpty(request.LoginType) || string.IsNullOrEmpty(request.Credential))
+            var command = new LoginCommand
             {
-                return BadRequest(new { Error = "Invalid login request" });
-            }
-
-            var result = await _authService.LoginAsync(request);
+                GuestId = request.GuestId,
+                LoginType = "default", 
+                Credential = $"{request.UserName}|{request.Password}" 
+            };
+            var result = await _mediator.Send(command);
             if (!result.Success)
             {
                 return BadRequest(new { Error = "Login failed. Invalid credentials or login type." });
@@ -45,15 +39,42 @@ namespace WebApp.Endpoints
             return Ok(result);
         }
 
-        /// <summary>
-        /// Đăng ký tài khoản mới.
-        /// </summary>
-        /// <param name="request">Thông tin đăng ký (GuestId, FullName, Email, Password, ...).</param>
-        /// <param name="cancellationToken">Token hủy bỏ.</param>
-        /// <returns>Access token và refresh token nếu thành công.</returns>
+        [HttpPost("login/google-web")]
+        public async Task<IActionResult> GoogleWebLogin([FromBody] GoogleWebLoginReq request)
+        {
+            var command = new LoginCommand
+            {
+                GuestId = request.GuestId,
+                LoginType = "google-web",
+                Credential = request.AuthCode
+            };
+            var result = await _mediator.Send(command);
+            if (!result.Success)
+            {
+                return BadRequest(new { Error = "Login failed. Invalid credentials or login type." });
+            }
+
+            return Ok(result);
+        }
+        [HttpPost("login/google-mobile")]
+        public async Task<IActionResult> GoogleMobileLogin([FromBody] GoogleMobileLoginReq request)
+        {
+            var command = new LoginCommand
+            {
+                GuestId = request.GuestId,
+                LoginType = "google-mobile",
+                Credential = request.IdToken
+            };
+            var result = await _mediator.Send(command);
+            if (!result.Success)
+            {
+                return BadRequest(new { Error = "Login failed. Invalid credentials or login type." });
+            }
+
+            return Ok(result);
+        }
+
         [HttpPost("register")]
-        [ProducesResponseType(typeof(AuthRes), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Register([FromBody] AddUserReq request, CancellationToken cancellationToken)
         {
             if (request == null || string.IsNullOrEmpty(request.FullName) || string.IsNullOrEmpty(request.Password))
@@ -71,15 +92,7 @@ namespace WebApp.Endpoints
             return Ok(result);
         }
 
-        /// <summary>
-        /// Đăng xuất người dùng.
-        /// </summary>
-        /// <param name="userName">Tên người dùng (username).</param>
-        /// <param name="cancellationToken">Token hủy bỏ.</param>
-        /// <returns>Trạng thái đăng xuất.</returns>
         [HttpPost("logout")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Logout([FromBody] string userName, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(userName))
@@ -96,15 +109,7 @@ namespace WebApp.Endpoints
             return Ok(new { Message = "Logged out successfully" });
         }
 
-        /// <summary>
-        /// Làm mới access token bằng refresh token.
-        /// </summary>
-        /// <param name="refreshToken">Refresh token hiện tại.</param>
-        /// <param name="cancellationToken">Token hủy bỏ.</param>
-        /// <returns>Access token và refresh token mới nếu thành công.</returns>
         [HttpPost("refresh-token")]
-        [ProducesResponseType(typeof(AuthRes), StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> RefreshToken([FromBody] string refreshToken, CancellationToken cancellationToken)
         {
             if (string.IsNullOrEmpty(refreshToken))

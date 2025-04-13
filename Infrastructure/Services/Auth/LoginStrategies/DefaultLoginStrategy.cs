@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using Shared.Auth;
 using Infrastructure.Persistence;
 using Microsoft.Extensions.DependencyInjection;
+using Application.Features.Auth;
 
 namespace Infrastructure.Services.Auth.LoginStrategies
 {
@@ -17,9 +18,9 @@ namespace Infrastructure.Services.Auth.LoginStrategies
             _userManager = serviceProvider.GetRequiredService<UserManager<AppUser>>();
         }
 
-        public async Task<IUser> Execute(LoginReq request)
+        public async Task<IUser> Execute(LoginCommand request)
         {
-            // Giả sử Credential là "email|password"
+            // Credential là "username|password"
             var credentials = request.Credential.Split('|');
             if (credentials.Length != 2)
             {
@@ -36,7 +37,6 @@ namespace Infrastructure.Services.Auth.LoginStrategies
             {
                 return null;
             }
-
             return user;
         }
     }
