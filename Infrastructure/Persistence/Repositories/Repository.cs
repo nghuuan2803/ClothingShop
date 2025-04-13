@@ -1,6 +1,5 @@
 ﻿using Domain.Entities;
 using Domain.Repositories;
-using Infrastructure.Persistence;
 using Microsoft.EntityFrameworkCore;
 using Shared.Utils;
 using System.Linq.Expressions;

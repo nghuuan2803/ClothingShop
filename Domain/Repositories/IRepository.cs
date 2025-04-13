@@ -8,7 +8,7 @@ namespace Domain.Repositories
     {
         Task<TEntity> GetByIdAsync(object id);
         Task<TEntity> GetSingleAsync(Expression<Func<TEntity, bool>> predicate);
-        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate,
+        Task<IEnumerable<TEntity>> GetAllAsync(Expression<Func<TEntity, bool>> predicate = null!,
             CancellationToken cancellationToken = default);
 
         Task<PaginatedData<TEntity>> GetPaginatedDataAsync(

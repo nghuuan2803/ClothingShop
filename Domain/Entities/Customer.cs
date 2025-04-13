@@ -2,6 +2,7 @@
 
 namespace Domain.Entities
 {
+    //Khách hàng hoặc khách vãng lai
     public class Customer : BaseEntity<string>
     {
         public string Name { get; set; } = string.Empty;

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20250412100618_init")]
+    [Migration("20250412140657_init")]
     partial class init
     {
         /// <inheritdoc />
@@ -616,6 +616,12 @@ namespace Infrastructure.Migrations
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTime?>("DoB")
                         .HasColumnType("datetime2");
 
@@ -664,6 +670,12 @@ namespace Infrastructure.Migrations
                     b.Property<bool>("TwoFactorEnabled")
                         .HasColumnType("bit");
 
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("UserName")
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
@@ -706,6 +718,20 @@ namespace Infrastructure.Migrations
                         .HasFilter("[NormalizedName] IS NOT NULL");
 
                     b.ToTable("AspNetRoles", (string)null);
+
+                    b.HasData(
+                        new
+                        {
+                            Id = "bdd06cc1-4b82-48ce-9aa2-2f574bd1896c",
+                            Name = "admin",
+                            NormalizedName = "ADMIN"
+                        },
+                        new
+                        {
+                            Id = "7a4dff7f-3d6a-4883-800b-7103ce57af94",
+                            Name = "customer",
+                            NormalizedName = "CUSTOMER"
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

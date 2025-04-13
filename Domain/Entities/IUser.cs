@@ -1,5 +1,6 @@
 ﻿namespace Domain.Entities
 {
+    //Người dùng đã có tài khoản
     public interface IUser : IEntity
     {
         string Id { get; set; }

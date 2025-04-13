@@ -1,6 +1,8 @@
 ﻿using Domain.Entities;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.Data;
 
 namespace Infrastructure.Persistence
 {
@@ -37,6 +39,41 @@ namespace Infrastructure.Persistence
             builder.Entity<CartItem>().HasKey(p => new { p.CustomerId, p.VariantId });
             builder.Entity<OrderItem>().HasKey(p => new { p.OrderId, p.VariantId });
             builder.Entity<ProductTag>().HasKey(p => new { p.ProductId, p.TagId });
+            SeedData(builder);
+        }
+
+        private void SeedData(ModelBuilder builder)
+        {
+            string adminRoleId = "bdd06cc1-4b82-48ce-9aa2-2f574bd1896c";
+            string customerRoleId = "7a4dff7f-3d6a-4883-800b-7103ce57af94";
+            var adminRole = new IdentityRole
+            {
+                Id = adminRoleId,
+                Name = "admin",
+                NormalizedName = "ADMIN"
+            };
+            var customerRole = new IdentityRole
+            {
+                Id = customerRoleId,
+                Name = "customer",
+                NormalizedName = "CUSTOMER"
+            };
+            var adminAcc = new AppUser
+            {
+                Id = "8c18473e-f0be-4202-bc37-38ced67318cb",
+                UserName = "admin",
+                NormalizedUserName = "ADMIN",
+                Email = "an28031998@gmail.com",
+                NormalizedEmail = "an28031998@gmail.com".ToUpper(),
+                EmailConfirmed = true,
+                CreatedAt = DateTimeOffset.UtcNow,
+                CreatedBy = "System"
+            };
+            var passwordHasher = new PasswordHasher<AppUser>();
+            adminAcc.PasswordHash = passwordHasher.HashPassword(adminAcc, "Admin@123");
+            //builder.Entity<AppUser>().HasData(adminAcc);
+            builder.Entity<IdentityRole>().HasData(adminRole);
+            builder.Entity<IdentityRole>().HasData(customerRole);
         }
     }
 }

@@ -9,6 +9,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\Infrastructure.csproj" />
     <ProjectReference Include="..\WebApp.Client\WebApp.Client.csproj" />
+    <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="9.0.2" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Core" Version="1.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.MessagePack" Version="9.0.4" />
@@ -16,7 +17,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Swashbuckle.AspNetCore" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>

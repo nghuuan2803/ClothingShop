@@ -4,7 +4,8 @@ using MediatR;
 
 namespace Application.Features.Users.Commands
 {
-    public record AddGuestCommand(string id) : IRequest<string> { }
+    //Tạo guest mới
+    public record AddGuestCommand(string guestId) : IRequest<string> { }
 
     public class AddGuestCommandHandler : IRequestHandler<AddGuestCommand, string>
     {
@@ -19,7 +20,7 @@ namespace Application.Features.Users.Commands
         {
             var customer = new Customer
             {
-                Id = request.id
+                Id = request.guestId
             };
             await _customerRepo.AddAsync(customer);
             await _customerRepo.SaveChangesAsync();

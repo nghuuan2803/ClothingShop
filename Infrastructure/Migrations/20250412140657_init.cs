@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
@@ -35,6 +37,10 @@ namespace Infrastructure.Migrations
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RewardPoint = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -552,6 +558,15 @@ namespace Infrastructure.Migrations
                         principalTable: "ProductVariants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "7a4dff7f-3d6a-4883-800b-7103ce57af94", null, "customer", "CUSTOMER" },
+                    { "bdd06cc1-4b82-48ce-9aa2-2f574bd1896c", null, "admin", "ADMIN" }
                 });
 
             migrationBuilder.CreateIndex(

@@ -31,36 +31,41 @@ namespace Application.Features.Users.Commands
 
         public async Task<AuthRes> Handle(CreateUserCommand command, CancellationToken cancellationToken)
         {
+            //if (string.IsNullOrEmpty(command.Request.GuestId) || !Guid.TryParse(command.Request.GuestId, out _))
+            //{
+            //    throw new ArgumentException("Invalid GuestId");
+            //}
+
             await _unitOfWork.BeginTransactionAsync();
             try
             {
-                //tìm guest hoặc tạo customer
                 var guest = await _customerRepo.GetByIdAsync(command.Request.GuestId);
-                if (guest is null)
+                if (guest == null)
                 {
-                    await _sender.Send(new AddGuestCommand(command.Request.GuestId));
-                    guest = await _customerRepo.GetByIdAsync(command.Request.GuestId);
+                    guest = new Customer { Id = command.Request.GuestId };
+                    await _customerRepo.AddAsync(guest);
                 }
 
+                guest.IsRegistered = true;
                 var user = await _userRepo.AddUserAsync(command.Request);
                 guest.UserId = user.Id;
                 guest.Name = command.Request.FullName;
-                
+
                 _customerRepo.Update(guest);
                 await _unitOfWork.CommitTransactionAsync();
 
                 var accessToken = await _authService.GenerateAccessTokenAsync(user);
                 var refreshToken = _authService.GenerateRefreshToken();
-                var res = new AuthRes
+                return new AuthRes
                 {
                     AccessToken = accessToken,
                     RefreshToken = refreshToken,
                     Success = true
                 };
-                return res;
             }
-            catch (Exception)
+            catch
             {
+                await _unitOfWork.RollbackTransactionAsync();
                 throw;
             }
         }

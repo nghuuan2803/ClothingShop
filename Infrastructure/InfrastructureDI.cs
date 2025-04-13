@@ -1,6 +1,8 @@
-﻿using Domain.Repositories;
+﻿using Application.Services.Auth;
+using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Persistence.Repositories;
+using Infrastructure.Services.Auth;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -67,6 +69,8 @@ namespace Infrastructure
 
             services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IAuthService, AuthService>();
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
