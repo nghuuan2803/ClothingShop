@@ -12,12 +12,10 @@ namespace WebApp.Endpoints
     [ApiController]
     public class AuthController : ControllerBase
     {
-        private readonly IAuthService _authService;
         private readonly IMediator _mediator;
 
-        public AuthController(IAuthService authService, IMediator mediator)
+        public AuthController(IMediator mediator)
         {
-            _authService = authService;
             _mediator = mediator;
         }
 
@@ -93,31 +91,21 @@ namespace WebApp.Endpoints
         }
 
         [HttpPost("logout")]
-        public async Task<IActionResult> Logout([FromBody] string userName, CancellationToken cancellationToken)
+        public async Task<IActionResult> Logout([FromBody] LogoutCommand command, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(userName))
+            var result = await _mediator.Send(command);
+            if (result != "Success")
             {
-                return BadRequest(new { Error = "Username is required" });
-            }
-
-            var success = await _authService.LogoutAsync(userName);
-            if (!success)
-            {
-                return BadRequest(new { Error = "Logout failed. User not found." });
+                return BadRequest(new { Error = result });
             }
 
             return Ok(new { Message = "Logged out successfully" });
         }
 
         [HttpPost("refresh-token")]
-        public async Task<IActionResult> RefreshToken([FromBody] string refreshToken, CancellationToken cancellationToken)
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokensCommand command, CancellationToken cancellationToken)
         {
-            if (string.IsNullOrEmpty(refreshToken))
-            {
-                return BadRequest(new { Error = "Refresh token is required" });
-            }
-
-            var result = await _authService.RefreshTokensAsync(refreshToken);
+            var result = await _mediator.Send(command);
             if (!result.Success)
             {
                 return BadRequest(new { Error = "Invalid or expired refresh token" });

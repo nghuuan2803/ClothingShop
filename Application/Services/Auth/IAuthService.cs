@@ -7,7 +7,7 @@ namespace Application.Services.Auth
     public interface IAuthService
     {
         Task<AuthRes> LoginAsync(LoginCommand request);
-        Task<bool> LogoutAsync(string userName);
+        Task<string> LogoutAsync(string refreshToken);
         Task<AuthRes> RefreshTokensAsync(string refreshToken);
         Task<string> GenerateAccessTokenAsync(IUser user);
         string GenerateRefreshToken();

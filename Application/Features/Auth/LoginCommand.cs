@@ -16,20 +16,27 @@ namespace Application.Features.Auth
     {
         private IAuthService _authService;
         private IRepository<Customer> _customerRepo;
+
+        public LoginCommandHandler(IAuthService authService, IRepository<Customer> customerRepo)
+        {
+            _authService = authService;
+            _customerRepo = customerRepo;
+        }
+
         public async Task<AuthResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
         {
             var authRes = await _authService.LoginAsync(request);
             var customer = await _customerRepo.GetSingleAsync(p => p.UserId == authRes.UserId);
-            if(customer is null)
-            {
-                throw new ApplicationException("User không hợp lệ");
-            }
+            //if(customer is null)
+            //{
+            //    throw new ApplicationException("User không hợp lệ");
+            //}
             var response = new AuthResponse
             {
                 AccessToken = authRes.AccessToken,
                 RefreshToken = authRes.RefreshToken,
                 Success = authRes.Success,
-                CustomerId = customer.Id
+                CustomerId = customer?.Id
             };
             return response;
         }

@@ -1,7 +1,6 @@
 ﻿using Application.Features.Auth;
 using Application.Services.Auth;
 using Domain.Entities;
-using Domain.Repositories;
 using Infrastructure.Persistence;
 using Infrastructure.Services.Auth.LoginStrategies;
 using Microsoft.AspNetCore.Identity;
@@ -47,7 +46,7 @@ namespace Infrastructure.Services.Auth
             var user = await strategy.Execute(request);
             if (user == null)
             {
-                var authRes = new AuthRes { Success = false };
+                return new AuthRes { Success = false };
             }
 
             // Tạo access token và refresh token
@@ -66,16 +65,20 @@ namespace Infrastructure.Services.Auth
             };
         }
 
-        public async Task<bool> LogoutAsync(string userName)
+        public async Task<string> LogoutAsync(string refreshtoken)
         {
-            var user = await _userManager.FindByNameAsync(userName);
+            var userToken = await _dbContext.UserTokens.FirstOrDefaultAsync(p => p.Value == refreshtoken);
+            if (userToken == null)
+            {
+                return "Token not found!";
+            }
+            var user = await _userManager.FindByIdAsync(userToken.UserId);
             if (user == null)
             {
-                return false;
+                return "User not found!";
             }
-
             await _userManager.RemoveAuthenticationTokenAsync(user, "MyApp", "RefreshToken");
-            return true;
+            return "Success";
         }
 
         public async Task<AuthRes> RefreshTokensAsync(string refreshToken)
@@ -89,6 +92,13 @@ namespace Infrastructure.Services.Auth
             if (user == null)
                 return new AuthRes { Success = false };
 
+            if (IsExpiredRefreshToken(refreshToken))
+            {
+                _dbContext.UserTokens.Remove(userToken);
+                await _dbContext.SaveChangesAsync();
+                return new AuthRes { Success = false };
+            }
+
             var newAccessToken = await GenerateAccessTokenAsync(user);
             var newRefreshToken = GenerateRefreshToken();
             await _userManager.SetAuthenticationTokenAsync(user, "MyApp", "RefreshToken", newRefreshToken);
@@ -99,6 +109,14 @@ namespace Infrastructure.Services.Auth
                 RefreshToken = newRefreshToken,
                 Success = true
             };
+        }
+        private bool IsExpiredRefreshToken(string token)
+        {
+            string[] param = token.Split('=');
+            var date = DateTimeOffset.Parse(param[1]);
+            if (date < DateTimeOffset.UtcNow)
+                return true;
+            return false;
         }
 
         public async Task<string> GenerateAccessTokenAsync(IUser user)
@@ -128,7 +146,12 @@ namespace Infrastructure.Services.Auth
 
         public string GenerateRefreshToken()
         {
-            return Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            string token = Convert.ToBase64String(RandomNumberGenerator.GetBytes(64));
+            token = token.Replace("=", "");
+            //token = token + "=" + DateTimeOffset.UtcNow.AddSeconds(30).ToString();
+            token = token + "=" + DateTimeOffset.UtcNow.AddMinutes(2).ToString();
+            //token = token + "=" + DateTimeOffset.UtcNow.AddDays(7).ToString();
+            return token;
         }
 
     }
