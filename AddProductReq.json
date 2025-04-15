@@ -1,31 +1,32 @@
 {
-  "name": "ao thun poro",
-  "description": "string",
-  "material": "cotton",
-  "price": 200000,
-  "categoryId": 1,
-  "boxSize": 0,
-  "boxWeight": 0,
+  "name": "Áo thun nam basic",
+  "description": "Áo thun cotton thoáng mát, phù hợp mặc hằng ngày.",
+  "material": "Cotton",
+  "style": "Casual",
+  "categoryId": 6,
+  "collectionId": null,
+  "brandId": 1,
+  "price": 250000,
+  "salePrice": null,
   "gender": 0,
   "isFeatured": true,
   "variants": [
     {
-      "productId": 0,
-      "size": "S",
       "colorId": 1,
-      "imageUrls": null
+      "imageUrls": null,
+      "stock": {
+        "1": 10,
+        "2": 20
+      }
     },
     {
-      "productId": 0,
-      "size": "M",
-      "colorId": 1,
-      "imageUrls": null
-    },
-    {
-      "productId": 0,
-      "size": "L",
-      "colorId": 1,
-      "imageUrls": null
+      "colorId": 2,
+      "imageUrls": null,
+      "stock": {
+        "1": 5,
+        "2": 15,
+        "3": 8
+      }
     }
   ]
 }

@@ -44,26 +44,4 @@ public static class DbSeeder
             }
         }
     }
-
-    public static async Task SeedCategoryAndColor(AppDbContext dbContext)
-    {
-        if (!dbContext.Categories.Any() && !dbContext.Colors.Any())
-        {
-            var category = new Category
-            {
-                Name = "Áo",
-                CreatedAt = DateTimeOffset.UtcNow
-            };
-            await dbContext.Categories.AddAsync(category);
-
-            var color = new Color
-            {
-                Name = "Trắng",
-                HexCode = "#FFFFFF"
-            };
-
-            await dbContext.Colors.AddAsync(color);
-            await dbContext.SaveChangesAsync();
-        }
-    }
 }

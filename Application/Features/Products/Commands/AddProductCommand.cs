@@ -25,6 +25,15 @@ namespace Application.Features.Products.Commands
             var product = request.Payload.ToProduct();
             if (product.Variants.Count < 1)
                 return -1;
+
+            foreach (var variant in product.Variants)
+            {
+                foreach (var size in variant.Inventories)
+                {
+
+                }
+            }
+
             await _productRepo.AddAsync(product);
             await _productRepo.SaveChangesAsync();
             return product.Id;

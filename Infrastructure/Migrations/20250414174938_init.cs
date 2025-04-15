@@ -3,7 +3,9 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Persistence.Migrations
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
+namespace Infrastructure.Migrations
 {
     /// <inheritdoc />
     public partial class init : Migration
@@ -32,8 +34,14 @@ namespace Persistence.Migrations
                     Id = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     DoB = table.Column<DateTime>(type: "datetime2", nullable: true),
                     Gender = table.Column<int>(type: "int", nullable: true),
+                    FullName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     AvatarUrl = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     RewardPoint = table.Column<int>(type: "int", nullable: false),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
                     Email = table.Column<string>(type: "nvarchar(256)", maxLength: 256, nullable: true),
@@ -67,12 +75,25 @@ namespace Persistence.Migrations
                     Showing = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Banners", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Brands",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Brands", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -82,11 +103,7 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ParentId = table.Column<int>(type: "int", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    ParentId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -105,8 +122,7 @@ namespace Persistence.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    HexCode = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    HexCode = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -114,50 +130,34 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShippingInfos",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShopId = table.Column<int>(type: "int", nullable: false),
-                    OrderId = table.Column<int>(type: "int", nullable: false),
-                    FromDistrict = table.Column<int>(type: "int", nullable: false),
-                    ToDistrict = table.Column<int>(type: "int", nullable: false),
-                    ServiceId = table.Column<int>(type: "int", nullable: false),
-                    InsuranceValue = table.Column<int>(type: "int", nullable: false),
-                    Coupon = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ToWardCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ToDistrictId = table.Column<int>(type: "int", nullable: false),
-                    FromDistrictId = table.Column<int>(type: "int", nullable: false),
-                    Weight = table.Column<int>(type: "int", nullable: false),
-                    Length = table.Column<int>(type: "int", nullable: false),
-                    Width = table.Column<int>(type: "int", nullable: false),
-                    Height = table.Column<int>(type: "int", nullable: false),
-                    Fee = table.Column<int>(type: "int", nullable: false),
-                    FeeInfo = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShippingInfos", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Tags",
+                name: "ProductCollections",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
+                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
+                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Tags", x => x.Id);
+                    table.PrimaryKey("PK_ProductCollections", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sizes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sizes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -275,10 +275,11 @@ namespace Persistence.Migrations
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     IsRegistered = table.Column<bool>(type: "bit", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     UserId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -293,35 +294,6 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ShopBranches",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Location = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ManagerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
-                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShopBranches", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ShopBranches_AspNetUsers_ManagerId",
-                        column: x => x.ManagerId,
-                        principalTable: "AspNetUsers",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Products",
                 columns: table => new
                 {
@@ -329,50 +301,42 @@ namespace Persistence.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Style = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Material = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
+                    SalePrice = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
                     CategoryId = table.Column<int>(type: "int", nullable: false),
+                    BrandId = table.Column<int>(type: "int", nullable: true),
                     BoxSize = table.Column<int>(type: "int", nullable: false),
                     BoxWeight = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<int>(type: "int", nullable: false),
                     IsFeatured = table.Column<bool>(type: "bit", nullable: false),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    CollectionId = table.Column<int>(type: "int", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Products", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Products_Brands_BrandId",
+                        column: x => x.BrandId,
+                        principalTable: "Brands",
+                        principalColumn: "Id");
+                    table.ForeignKey(
                         name: "FK_Products_Categories_CategoryId",
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "ShippingDetails",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ShippingId = table.Column<int>(type: "int", nullable: false),
-                    Description = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Status = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ShippingDetails", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_ShippingDetails_ShippingInfos_ShippingId",
-                        column: x => x.ShippingId,
-                        principalTable: "ShippingInfos",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        name: "FK_Products_ProductCollections_CollectionId",
+                        column: x => x.CollectionId,
+                        principalTable: "ProductCollections",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -394,7 +358,7 @@ namespace Persistence.Migrations
                     HandlerId = table.Column<string>(type: "nvarchar(450)", nullable: true),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -415,43 +379,18 @@ namespace Persistence.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ProductTags",
-                columns: table => new
-                {
-                    ProductId = table.Column<int>(type: "int", nullable: false),
-                    TagId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ProductTags", x => new { x.ProductId, x.TagId });
-                    table.ForeignKey(
-                        name: "FK_ProductTags_Products_ProductId",
-                        column: x => x.ProductId,
-                        principalTable: "Products",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_ProductTags_Tags_TagId",
-                        column: x => x.TagId,
-                        principalTable: "Tags",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "ProductVariants",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ProductId = table.Column<int>(type: "int", nullable: false),
-                    Size = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     ColorId = table.Column<int>(type: "int", nullable: false),
                     ImageUrls = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    Images = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: true),
                     UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
                 },
                 constraints: table =>
@@ -500,19 +439,14 @@ namespace Persistence.Migrations
                 name: "Inventories",
                 columns: table => new
                 {
-                    Id = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
                     VariantId = table.Column<int>(type: "int", nullable: false),
-                    BranchId = table.Column<int>(type: "int", nullable: false),
-                    Quantity = table.Column<int>(type: "int", nullable: false),
-                    CreatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    CreatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    UpdatedAt = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
-                    UpdatedBy = table.Column<string>(type: "nvarchar(max)", nullable: true)
+                    SizeId = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: true),
+                    Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Inventories", x => x.Id);
+                    table.PrimaryKey("PK_Inventories", x => new { x.VariantId, x.SizeId });
                     table.ForeignKey(
                         name: "FK_Inventories_ProductVariants_VariantId",
                         column: x => x.VariantId,
@@ -520,9 +454,9 @@ namespace Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Inventories_ShopBranches_BranchId",
-                        column: x => x.BranchId,
-                        principalTable: "ShopBranches",
+                        name: "FK_Inventories_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -551,6 +485,137 @@ namespace Persistence.Migrations
                         principalTable: "ProductVariants",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "AspNetRoles",
+                columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
+                values: new object[,]
+                {
+                    { "7a4dff7f-3d6a-4883-800b-7103ce57af94", null, "customer", "CUSTOMER" },
+                    { "bdd06cc1-4b82-48ce-9aa2-2f574bd1896c", null, "admin", "ADMIN" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Brands",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Zara" },
+                    { 2, "H&M" },
+                    { 3, "Uniqlo" },
+                    { 4, "Gucci" },
+                    { 5, "Luis Vuiton" },
+                    { 6, "Dior" },
+                    { 7, "Tommy Hilfiger" },
+                    { 8, "John Henry" },
+                    { 9, "Nike" },
+                    { 10, "Addidas" },
+                    { 11, "New Balance" },
+                    { 12, "Biti's Hunter" },
+                    { 13, "Frcnk" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name", "ParentId" },
+                values: new object[,]
+                {
+                    { 1, "Áo", null },
+                    { 2, "Quần", null },
+                    { 3, "Giày", null },
+                    { 4, "Phụ kiện", null }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Colors",
+                columns: new[] { "Id", "HexCode", "Name" },
+                values: new object[,]
+                {
+                    { 1, "#FFFFFF", "Trắng" },
+                    { 2, "#000000", "Đen" },
+                    { 3, "#000000", "Đỏ" },
+                    { 4, "#000000", "Vàng" },
+                    { 5, "#000000", "Xanh lá" },
+                    { 6, "#000000", "Xanh dương" },
+                    { 7, "#000000", "Xám" },
+                    { 8, "#000000", "Ghi" },
+                    { 9, "#000000", "Camel" },
+                    { 10, "#000000", "Hồng" },
+                    { 11, "#000000", "Tím" },
+                    { 12, "#000000", "Nâu" },
+                    { 13, "#000000", "Nâu đen" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sizes",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "S" },
+                    { 2, "M" },
+                    { 3, "L" },
+                    { 4, "XL" },
+                    { 5, "XXL" },
+                    { 6, "XXXL" },
+                    { 7, "4XL" },
+                    { 8, "16" },
+                    { 9, "17" },
+                    { 10, "18" },
+                    { 11, "19" },
+                    { 12, "20" },
+                    { 13, "21" },
+                    { 14, "22" },
+                    { 15, "23" },
+                    { 16, "24" },
+                    { 17, "25" },
+                    { 18, "26" },
+                    { 19, "27" },
+                    { 20, "28" },
+                    { 21, "29" },
+                    { 22, "30" },
+                    { 23, "31" },
+                    { 24, "32" },
+                    { 25, "33" },
+                    { 26, "34" },
+                    { 27, "35" },
+                    { 28, "36" },
+                    { 29, "37" },
+                    { 30, "38" },
+                    { 31, "39" },
+                    { 32, "40" },
+                    { 33, "41" },
+                    { 34, "42" },
+                    { 35, "43" },
+                    { 36, "44" },
+                    { 37, "45" },
+                    { 38, "46" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Categories",
+                columns: new[] { "Id", "Name", "ParentId" },
+                values: new object[,]
+                {
+                    { 5, "Áo khoác", 1 },
+                    { 6, "Áo thun", 1 },
+                    { 7, "Áo sơ mi", 1 },
+                    { 8, "Áo polo", 1 },
+                    { 9, "Áo sweater", 1 },
+                    { 10, "Quần tây", 2 },
+                    { 11, "Quần jean", 2 },
+                    { 12, "Quần kaki", 2 },
+                    { 13, "Quần jogger", 2 },
+                    { 14, "Quần short", 2 },
+                    { 15, "Quần vải", 2 },
+                    { 16, "Giày Tây", 3 },
+                    { 17, "Giày Sneaker", 3 },
+                    { 18, "Giày Thể thao", 3 },
+                    { 19, "Thắt lưng", 4 },
+                    { 20, "Ví", 4 },
+                    { 21, "Cặp", 4 },
+                    { 22, "Tất", 4 },
+                    { 23, "Khăn quàng", 4 }
                 });
 
             migrationBuilder.CreateIndex(
@@ -610,14 +675,9 @@ namespace Persistence.Migrations
                 filter: "[UserId] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Inventories_BranchId",
+                name: "IX_Inventories_SizeId",
                 table: "Inventories",
-                column: "BranchId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Inventories_VariantId",
-                table: "Inventories",
-                column: "VariantId");
+                column: "SizeId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_OrderItems_VariantId",
@@ -635,14 +695,19 @@ namespace Persistence.Migrations
                 column: "HandlerId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Products_BrandId",
+                table: "Products",
+                column: "BrandId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Products_CategoryId",
                 table: "Products",
                 column: "CategoryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ProductTags_TagId",
-                table: "ProductTags",
-                column: "TagId");
+                name: "IX_Products_CollectionId",
+                table: "Products",
+                column: "CollectionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProductVariants_ColorId",
@@ -653,16 +718,6 @@ namespace Persistence.Migrations
                 name: "IX_ProductVariants_ProductId",
                 table: "ProductVariants",
                 column: "ProductId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShippingDetails_ShippingId",
-                table: "ShippingDetails",
-                column: "ShippingId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ShopBranches_ManagerId",
-                table: "ShopBranches",
-                column: "ManagerId");
         }
 
         /// <inheritdoc />
@@ -696,28 +751,16 @@ namespace Persistence.Migrations
                 name: "OrderItems");
 
             migrationBuilder.DropTable(
-                name: "ProductTags");
-
-            migrationBuilder.DropTable(
-                name: "ShippingDetails");
-
-            migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "ShopBranches");
+                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ProductVariants");
-
-            migrationBuilder.DropTable(
-                name: "Tags");
-
-            migrationBuilder.DropTable(
-                name: "ShippingInfos");
 
             migrationBuilder.DropTable(
                 name: "Customers");
@@ -732,7 +775,13 @@ namespace Persistence.Migrations
                 name: "AspNetUsers");
 
             migrationBuilder.DropTable(
+                name: "Brands");
+
+            migrationBuilder.DropTable(
                 name: "Categories");
+
+            migrationBuilder.DropTable(
+                name: "ProductCollections");
         }
     }
 }

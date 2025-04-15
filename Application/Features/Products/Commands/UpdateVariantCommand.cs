@@ -8,7 +8,6 @@ namespace Application.Features.Products.Commands
     {
         public int Id { get; set; }
         public int ColorId { get; set; }
-        public required string Size { get; set; }
         public string? ImageUrls { get; set; }
     }
     public class UpdateVariantCommandHandler : IRequestHandler<UpdateVariantCommand, string>
@@ -25,8 +24,12 @@ namespace Application.Features.Products.Commands
             var variant = await _repo.GetByIdAsync(request.Id);
             if (variant == null)
                 return "Variant not found!";
+            var otherVariants = await _repo.GetAllAsync(p=>p.Id == request.Id&&p.ColorId==request.ColorId);
+            if (otherVariants.Any())
+            {
+                return "There is another varian of this color";                
+            }
             variant.ColorId = request.ColorId;
-            variant.Size = request.Size;
             variant.ImageUrls = request.ImageUrls;
 
             _repo.Update(variant);

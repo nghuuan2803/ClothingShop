@@ -3,7 +3,7 @@ using Shared.Products;
 
 namespace Application.Common.Mapping
 {
-    public static class ProductMapper
+    public static class ProductMapping
     {
         public static Product ToProduct(this AddProductReq req)
         {
@@ -12,14 +12,16 @@ namespace Application.Common.Mapping
                 Name = req.Name,
                 Description = req.Description,
                 Price = req.Price,
+                SalePrice = req.SalePrice,
                 IsFeatured = req.IsFeatured,
                 Material = req.Material,
+                Style = req.Style,
+                CollectionId = req.CollectionId,
+                BrandId = req.BrandId,
                 Gender = req.Gender,
-                BoxSize = req.BoxSize,
-                BoxWeight = req.BoxWeight,
                 CategoryId = req.CategoryId,
                 CreatedAt = DateTimeOffset.UtcNow,
-                Variants = req.Variants?.Select(p => p.ToVariant()).ToList()
+                Variants = req.Variants?.Select(p => p.ToVariant()).ToList() ?? []
             };
             return product;
         }
@@ -27,10 +29,10 @@ namespace Application.Common.Mapping
         {
             var variant = new ProductVariant
             {
-                Size = req.Size,
                 ColorId = req.ColorId,
                 CreatedAt = DateTimeOffset.UtcNow,
-                ImageUrls = req.ImageUrls
+                ImageUrls = req.ImageUrls,
+                Inventories = req.Stock.ToInventories()
             };
             return variant;
         }
@@ -43,20 +45,21 @@ namespace Application.Common.Mapping
                 Name = product.Name,
                 Description = product.Description,
                 Material = product.Material,
+                Style = product.Style,
+                SalePrice = product.SalePrice,
                 Price = product.Price,
                 CategoryId = product.CategoryId,
-                CategoryName = product.Category?.Name,
+                Category = product.Category?.Name,
+                CollectionId = product.CollectionId,
+                Collection = product.Collection?.Name,
+                BrandId = product.BrandId,
+                Brand = product.Brand?.Name,
                 BoxSize = product.BoxSize,
                 BoxWeight = product.BoxWeight,
                 Gender = product.Gender,
                 IsFeatured = product.IsFeatured,
                 Images = product.Images ?? [],
-                Tags = product.ProductTags?.Select(pt => new TagDto
-                {
-                    TagId = pt.TagId,
-                    TagName = pt.Tag?.Name ?? string.Empty
-                }) ?? [],
-                Variants = product.Variants.ToVariantDtos()
+                Variants = product.Variants?.ToVariantDtos()
             };
         }
 
@@ -66,17 +69,17 @@ namespace Application.Common.Mapping
             {
                 Id = variant.Id,
                 ProductId = variant.ProductId,
-                Size = variant.Size,
                 ColorId = variant.ColorId,
-                ColorName = variant.Color?.Name,
+                Color = variant.Color?.Name,
                 ColorHex = variant.Color?.HexCode,
                 ImageUrls = variant.ImageUrls,
                 Images = variant.Images ?? [],
                 Inventories = variant.Inventories?.Select(i => new InventoryDto
                 {
-                    BranchId = i.BranchId,
-                    BranchName = i.Branch?.Name ?? "", 
-                    Quantity = i.Quantity
+                    SizeId = i.SizeId,
+                    Size = i.Size?.Name ?? "",
+                    Quantity = i.Quantity,
+                    Price = i.Price
                 }) ?? []
             };
         }
@@ -84,6 +87,20 @@ namespace Application.Common.Mapping
         public static List<VariantDto> ToVariantDtos(this ICollection<ProductVariant>? variants)
         {
             return variants?.Select(v => v.ToVariantDto()).ToList() ?? new List<VariantDto>();
+        }
+
+        public static List<Inventory> ToInventories(this Dictionary<int,int> stock)
+        {
+            List<Inventory> inventory = new List<Inventory>();
+            foreach (var item in stock)
+            {
+                inventory.Add(new Inventory
+                {
+                    SizeId = item.Key,
+                    Quantity = item.Value,
+                });
+            }
+            return inventory;
         }
     }
 }

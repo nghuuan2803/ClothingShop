@@ -64,6 +64,90 @@ namespace Infrastructure.Migrations
                     b.ToTable("Banners");
                 });
 
+            modelBuilder.Entity("Domain.Entities.Brand", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Brands");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Zara"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "H&M"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Uniqlo"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Gucci"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Luis Vuiton"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Dior"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Tommy Hilfiger"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "John Henry"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Nike"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Addidas"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "New Balance"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Biti's Hunter"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Frcnk"
+                        });
+                });
+
             modelBuilder.Entity("Domain.Entities.CartItem", b =>
                 {
                     b.Property<string>("CustomerId")
@@ -90,12 +174,6 @@ namespace Infrastructure.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -103,17 +181,147 @@ namespace Infrastructure.Migrations
                     b.Property<int?>("ParentId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ParentId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "Áo"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "Quần"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "Giày"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "Phụ kiện"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "Áo khoác",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "Áo thun",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "Áo sơ mi",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "Áo polo",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "Áo sweater",
+                            ParentId = 1
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "Quần tây",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "Quần jean",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "Quần kaki",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "Quần jogger",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "Quần short",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "Quần vải",
+                            ParentId = 2
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "Giày Tây",
+                            ParentId = 3
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "Giày Sneaker",
+                            ParentId = 3
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "Giày Thể thao",
+                            ParentId = 3
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "Thắt lưng",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "Ví",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "Cặp",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "Tất",
+                            ParentId = 4
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "Khăn quàng",
+                            ParentId = 4
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Color", b =>
@@ -123,9 +331,6 @@ namespace Infrastructure.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("HexCode")
                         .HasColumnType("nvarchar(max)");
@@ -137,6 +342,86 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Colors");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            HexCode = "#FFFFFF",
+                            Name = "Trắng"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            HexCode = "#000000",
+                            Name = "Đen"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            HexCode = "#000000",
+                            Name = "Đỏ"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            HexCode = "#000000",
+                            Name = "Vàng"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            HexCode = "#000000",
+                            Name = "Xanh lá"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            HexCode = "#000000",
+                            Name = "Xanh dương"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            HexCode = "#000000",
+                            Name = "Xám"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            HexCode = "#000000",
+                            Name = "Ghi"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            HexCode = "#000000",
+                            Name = "Camel"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            HexCode = "#000000",
+                            Name = "Hồng"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            HexCode = "#000000",
+                            Name = "Tím"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            HexCode = "#000000",
+                            Name = "Nâu"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            HexCode = "#000000",
+                            Name = "Nâu đen"
+                        });
                 });
 
             modelBuilder.Entity("Domain.Entities.Customer", b =>
@@ -186,38 +471,21 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
+                    b.Property<int>("VariantId")
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BranchId")
+                    b.Property<int>("SizeId")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<decimal?>("Price")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
+                    b.HasKey("VariantId", "SizeId");
 
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("VariantId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BranchId");
-
-                    b.HasIndex("VariantId");
+                    b.HasIndex("SizeId");
 
                     b.ToTable("Inventories");
                 });
@@ -321,7 +589,13 @@ namespace Infrastructure.Migrations
                     b.Property<int>("BoxWeight")
                         .HasColumnType("int");
 
+                    b.Property<int?>("BrandId")
+                        .HasColumnType("int");
+
                     b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("CollectionId")
                         .HasColumnType("int");
 
                     b.Property<DateTimeOffset>("CreatedAt")
@@ -354,6 +628,13 @@ namespace Infrastructure.Migrations
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
+                    b.Property<decimal?>("SalePrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("Style")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -362,24 +643,45 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("BrandId");
+
                     b.HasIndex("CategoryId");
+
+                    b.HasIndex("CollectionId");
 
                     b.ToTable("Products");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ProductTag", b =>
+            modelBuilder.Entity("Domain.Entities.ProductCollection", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    b.Property<int>("TagId")
-                        .HasColumnType("int");
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.HasKey("ProductId", "TagId");
+                    b.Property<DateTimeOffset>("CreatedAt")
+                        .HasColumnType("datetimeoffset");
 
-                    b.HasIndex("TagId");
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
 
-                    b.ToTable("ProductTags");
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTimeOffset?>("UpdatedAt")
+                        .HasColumnType("datetimeoffset");
+
+                    b.Property<string>("UpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ProductCollections");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProductVariant", b =>
@@ -408,10 +710,6 @@ namespace Infrastructure.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Size")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<DateTimeOffset?>("UpdatedAt")
                         .HasColumnType("datetimeoffset");
 
@@ -427,170 +725,13 @@ namespace Infrastructure.Migrations
                     b.ToTable("ProductVariants");
                 });
 
-            modelBuilder.Entity("Domain.Entities.ShippingDetail", b =>
+            modelBuilder.Entity("Domain.Entities.Size", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("Description")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("ShippingId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ShippingId");
-
-                    b.ToTable("ShippingDetails");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ShippingInfo", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Coupon")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Fee")
-                        .HasColumnType("int");
-
-                    b.Property<string>("FeeInfo")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("FromDistrict")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FromDistrictId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Height")
-                        .HasColumnType("int");
-
-                    b.Property<int>("InsuranceValue")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Length")
-                        .HasColumnType("int");
-
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ServiceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ShopId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToDistrict")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ToDistrictId")
-                        .HasColumnType("int");
-
-                    b.Property<string>("ToWardCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("Weight")
-                        .HasColumnType("int");
-
-                    b.Property<int>("Width")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("ShippingInfos");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ShopBranch", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("CreatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<string>("Location")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ManagerId")
-                        .HasColumnType("nvarchar(450)");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTimeOffset?>("UpdatedAt")
-                        .HasColumnType("datetimeoffset");
-
-                    b.Property<string>("UpdatedBy")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ManagerId");
-
-                    b.ToTable("ShopBranches");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Tag", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTimeOffset>("CreatedAt")
-                        .HasColumnType("datetimeoffset");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -598,7 +739,199 @@ namespace Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Tags");
+                    b.ToTable("Sizes");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            Name = "S"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            Name = "M"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            Name = "L"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            Name = "XL"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            Name = "XXL"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            Name = "XXXL"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            Name = "4XL"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            Name = "16"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            Name = "17"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            Name = "18"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            Name = "19"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            Name = "20"
+                        },
+                        new
+                        {
+                            Id = 13,
+                            Name = "21"
+                        },
+                        new
+                        {
+                            Id = 14,
+                            Name = "22"
+                        },
+                        new
+                        {
+                            Id = 15,
+                            Name = "23"
+                        },
+                        new
+                        {
+                            Id = 16,
+                            Name = "24"
+                        },
+                        new
+                        {
+                            Id = 17,
+                            Name = "25"
+                        },
+                        new
+                        {
+                            Id = 18,
+                            Name = "26"
+                        },
+                        new
+                        {
+                            Id = 19,
+                            Name = "27"
+                        },
+                        new
+                        {
+                            Id = 20,
+                            Name = "28"
+                        },
+                        new
+                        {
+                            Id = 21,
+                            Name = "29"
+                        },
+                        new
+                        {
+                            Id = 22,
+                            Name = "30"
+                        },
+                        new
+                        {
+                            Id = 23,
+                            Name = "31"
+                        },
+                        new
+                        {
+                            Id = 24,
+                            Name = "32"
+                        },
+                        new
+                        {
+                            Id = 25,
+                            Name = "33"
+                        },
+                        new
+                        {
+                            Id = 26,
+                            Name = "34"
+                        },
+                        new
+                        {
+                            Id = 27,
+                            Name = "35"
+                        },
+                        new
+                        {
+                            Id = 28,
+                            Name = "36"
+                        },
+                        new
+                        {
+                            Id = 29,
+                            Name = "37"
+                        },
+                        new
+                        {
+                            Id = 30,
+                            Name = "38"
+                        },
+                        new
+                        {
+                            Id = 31,
+                            Name = "39"
+                        },
+                        new
+                        {
+                            Id = 32,
+                            Name = "40"
+                        },
+                        new
+                        {
+                            Id = 33,
+                            Name = "41"
+                        },
+                        new
+                        {
+                            Id = 34,
+                            Name = "42"
+                        },
+                        new
+                        {
+                            Id = 35,
+                            Name = "43"
+                        },
+                        new
+                        {
+                            Id = 36,
+                            Name = "44"
+                        },
+                        new
+                        {
+                            Id = 37,
+                            Name = "45"
+                        },
+                        new
+                        {
+                            Id = 38,
+                            Name = "46"
+                        });
                 });
 
             modelBuilder.Entity("Infrastructure.Persistence.AppUser", b =>
@@ -881,9 +1214,9 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Inventory", b =>
                 {
-                    b.HasOne("Domain.Entities.ShopBranch", "Branch")
-                        .WithMany("Inventories")
-                        .HasForeignKey("BranchId")
+                    b.HasOne("Domain.Entities.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -893,7 +1226,7 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Branch");
+                    b.Navigation("Size");
 
                     b.Navigation("Variant");
                 });
@@ -935,32 +1268,25 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
+                    b.HasOne("Domain.Entities.Brand", "Brand")
+                        .WithMany()
+                        .HasForeignKey("BrandId");
+
                     b.HasOne("Domain.Entities.Category", "Category")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.ProductCollection", "Collection")
+                        .WithMany("Products")
+                        .HasForeignKey("CollectionId");
+
+                    b.Navigation("Brand");
+
                     b.Navigation("Category");
-                });
 
-            modelBuilder.Entity("Domain.Entities.ProductTag", b =>
-                {
-                    b.HasOne("Domain.Entities.Product", "Product")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Domain.Entities.Tag", "Tag")
-                        .WithMany("ProductTags")
-                        .HasForeignKey("TagId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Product");
-
-                    b.Navigation("Tag");
+                    b.Navigation("Collection");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProductVariant", b =>
@@ -980,25 +1306,6 @@ namespace Infrastructure.Migrations
                     b.Navigation("Color");
 
                     b.Navigation("Product");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ShippingDetail", b =>
-                {
-                    b.HasOne("Domain.Entities.ShippingInfo", "Shipping")
-                        .WithMany()
-                        .HasForeignKey("ShippingId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Shipping");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ShopBranch", b =>
-                {
-                    b.HasOne("Infrastructure.Persistence.AppUser", null)
-                        .WithMany()
-                        .HasForeignKey("ManagerId")
-                        .OnDelete(DeleteBehavior.SetNull);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -1068,24 +1375,17 @@ namespace Infrastructure.Migrations
 
             modelBuilder.Entity("Domain.Entities.Product", b =>
                 {
-                    b.Navigation("ProductTags");
-
                     b.Navigation("Variants");
+                });
+
+            modelBuilder.Entity("Domain.Entities.ProductCollection", b =>
+                {
+                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Domain.Entities.ProductVariant", b =>
                 {
                     b.Navigation("Inventories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.ShopBranch", b =>
-                {
-                    b.Navigation("Inventories");
-                });
-
-            modelBuilder.Entity("Domain.Entities.Tag", b =>
-                {
-                    b.Navigation("ProductTags");
                 });
 #pragma warning restore 612, 618
         }

@@ -19,17 +19,16 @@ namespace Infrastructure.Persistence.Repositories
                 var products = await dbSet
                     .Where(p => !p.IsDeleted)
                     .Include(p => p.Category)
-                    .Include(p => p.ProductTags)
-                        .ThenInclude(p => p.Tag)
                     .ToListAsync();
 
                 foreach (var item in products)
                 {
                     item.Variants = await _dbContext.ProductVariants
-                        .Where(p => p.ProductId == item.Id&& !p.IsDeleted)
+                        .Where(p => p.ProductId == item.Id && !p.IsDeleted)
                         .Include(p => p.Color)
                         .Include(p => p.Inventories)
-                            .ThenInclude(p => p.Branch).ToListAsync();
+                        .ThenInclude(p=>p.Size)
+                        .ToListAsync();
                 }
                 return products;
             }
@@ -37,13 +36,16 @@ namespace Infrastructure.Persistence.Repositories
             {
                 var products = await dbSet.Where(predicate)
                     .Include(p => p.Category)
-                    .Include(p => p.ProductTags)
-                        .ThenInclude(p => p.Tag)
                     .ToListAsync();
 
                 foreach (var item in products)
                 {
-                    item.Variants = await _dbContext.ProductVariants.Where(p => p.ProductId == item.Id).Include(p => p.Color).Include(p => p.Inventories).ThenInclude(p => p.Branch).ToListAsync();
+                    item.Variants = await _dbContext.ProductVariants
+                        .Where(p => p.ProductId == item.Id)
+                        .Include(p => p.Color)
+                        .Include(p => p.Inventories)
+                        .ThenInclude(p => p.Size)
+                        .ToListAsync();
                 }
                 return products;
             }
@@ -53,13 +55,14 @@ namespace Infrastructure.Persistence.Repositories
         {
             var product = await dbSet
                     .Include(p => p.Category)
-                    .Include(p => p.Variants)
-                        .ThenInclude(p => p.Inventories)
-                    .Include(p => p.ProductTags)
-                        .ThenInclude(p => p.Tag)
                     .FirstOrDefaultAsync(predicate);
             if (product != null)
-                product.Variants = await _dbContext.ProductVariants.Where(p => p.ProductId == product.Id).Include(p => p.Color).Include(p => p.Inventories).ThenInclude(p => p.Branch).ToListAsync();
+                product.Variants = await _dbContext.ProductVariants
+                    .Where(p => p.ProductId == product.Id)
+                    .Include(p => p.Color)
+                    .Include(p => p.Inventories)
+                    .ThenInclude(p => p.Size)
+                    .ToListAsync();
             return product;
         }
     }

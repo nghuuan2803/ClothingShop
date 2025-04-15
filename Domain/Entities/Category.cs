@@ -1,7 +1,10 @@
-﻿namespace Domain.Entities
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace Domain.Entities
 {
-    public class Category : BaseEntity<int>
+    public class Category : IEntity
     {
+        [Key] public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
         public int? ParentId { get; set; }
         public Category? Parent { get; set; }

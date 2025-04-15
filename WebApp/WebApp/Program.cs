@@ -69,7 +69,6 @@ public class Program
             var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
             var dbContext = services.GetRequiredService<AppDbContext>();
             DbSeeder.SeedAdminAsync(userManager, roleManager).GetAwaiter().GetResult();
-            DbSeeder.SeedCategoryAndColor(dbContext).GetAwaiter().GetResult();
         }
 
         // Configure the HTTP request pipeline.

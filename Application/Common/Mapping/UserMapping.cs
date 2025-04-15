@@ -3,7 +3,7 @@ using Shared.Users;
 
 namespace Application.Common.Mapping
 {
-    public static class UserMapper
+    public static class UserMapping
     {
         public static GuestInfoRes ToGuestInfo(this Customer customer)
         {

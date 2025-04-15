@@ -31,8 +31,7 @@ namespace Application.Features.Products.Commands
 
             var variant = await _variantRepo
                 .GetSingleAsync(p => p.ProductId == request.ProductId
-                && p.ColorId == request.ColorId
-                && p.Size == request.Size);
+                && p.ColorId == request.ColorId);
             if (variant != null && !variant.IsDeleted)
                 throw new ApplicationException("Variant already exist!");
             if (variant != null && variant.IsDeleted)
@@ -45,7 +44,6 @@ namespace Application.Features.Products.Commands
             {
                 ProductId = product.Id,
                 ColorId = request.ColorId,
-                Size = request.Size,
                 ImageUrls = request.ImageUrls,
                 CreatedAt = DateTimeOffset.UtcNow,
             };
