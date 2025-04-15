@@ -41,6 +41,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Carts", "Carts", "{CB3F5522
 		DongBoDuLieuGioHang.txt = DongBoDuLieuGioHang.txt
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Orders", "Orders", "{98C92849-A887-45B5-9056-B5D0C7706A0F}"
+	ProjectSection(SolutionItems) = preProject
+		CreateOrderReq.json = CreateOrderReq.json
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -91,6 +96,7 @@ Global
 		{45C07096-5F28-44A5-B666-01FBD080F524} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
 		{FAAE9F09-31D7-43D8-A9FB-3D9B6EE3135B} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
 		{CB3F5522-2109-4614-894F-4FB687F90E51} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
+		{98C92849-A887-45B5-9056-B5D0C7706A0F} = {80CD2FCE-5EF6-4F7E-9B4D-483F92F88BFA}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {3A36CC13-8A45-42B6-A8BF-77DF8783328F}

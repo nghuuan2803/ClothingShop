@@ -1,0 +1,15 @@
+{
+  "customerId": "123",
+  "customerName": "Huu An",
+  "phoneNumber": "0933912012",
+  "paymentMethod": 1,
+  "items": [
+    {
+      "variantId": 1,
+      "sizeId": 1,
+      "quantity": 1
+    }
+  ]
+}
+
+//return orderId

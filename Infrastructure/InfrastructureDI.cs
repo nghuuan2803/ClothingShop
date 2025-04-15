@@ -75,6 +75,8 @@ namespace Infrastructure
             services.AddScoped<IRepository<Product>, ProductRepository>();
             services.AddScoped<IRepository<ProductVariant>, VariantRepository>();
             services.AddScoped<IRepository<CartItem>, CartRepository>();
+            services.AddScoped<IRepository<Order>, OrderRepository>();
+            services.AddScoped<IRepository<Inventory>, InventoryRepository>();
 
             return services;
         }

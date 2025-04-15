@@ -3,6 +3,7 @@ using System.Reflection;
 using FluentValidation;
 using MediatR;
 using Application.Common.Behaviors;
+using Application.Features.Orders;
 
 namespace Application
 {
@@ -13,6 +14,9 @@ namespace Application
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
             services.AddScoped(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+            services.AddScoped<IAmountCalculator, BaseAmountCalculator>();
+            services.AddScoped<IShipFeeCalculator, MockShipFeeCalculator>();
+            services.AddScoped<UpdateCustomerProcess>();
             return services;
         }
     }

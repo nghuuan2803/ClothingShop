@@ -30,5 +30,12 @@ namespace WebApp.Endpoints
                 return Ok(result);
             return BadRequest(result);
         }
+
+        [HttpDelete("{CustomerId}")]
+        public async Task<IActionResult> AddToCart(string CustomerId)
+        {
+            await sender.Send(new ClearCartCommand(CustomerId));
+            return Ok();
+        }
     }
 }
