@@ -156,10 +156,15 @@ namespace Infrastructure.Migrations
                     b.Property<int>("VariantId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("CustomerId", "VariantId");
+                    b.HasKey("CustomerId", "VariantId", "SizeId");
+
+                    b.HasIndex("SizeId");
 
                     b.HasIndex("VariantId");
 
@@ -562,13 +567,18 @@ namespace Infrastructure.Migrations
                     b.Property<int>("VariantId")
                         .HasColumnType("int");
 
+                    b.Property<int>("SizeId")
+                        .HasColumnType("int");
+
                     b.Property<decimal>("Price")
                         .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.HasKey("OrderId", "VariantId");
+                    b.HasKey("OrderId", "VariantId", "SizeId");
+
+                    b.HasIndex("SizeId");
 
                     b.HasIndex("VariantId");
 
@@ -1184,6 +1194,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
@@ -1191,6 +1207,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Customer");
+
+                    b.Navigation("Size");
 
                     b.Navigation("Variant");
                 });
@@ -1255,6 +1273,12 @@ namespace Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Domain.Entities.Size", "Size")
+                        .WithMany()
+                        .HasForeignKey("SizeId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Domain.Entities.ProductVariant", "Variant")
                         .WithMany()
                         .HasForeignKey("VariantId")
@@ -1262,6 +1286,8 @@ namespace Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Order");
+
+                    b.Navigation("Size");
 
                     b.Navigation("Variant");
                 });

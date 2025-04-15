@@ -13,6 +13,7 @@ namespace Application.Features.Products.Commands
         public string Material { get; set; }
         public string Style { get; set; }
         public int? CollectionId { get; set; }
+        public int? BrandId { get; set; }
         public decimal Price { get; set; }
         public decimal SalePrice { get; set; }
         public int CategoryId { get; set; }
@@ -39,9 +40,11 @@ namespace Application.Features.Products.Commands
             product.Gender = request.Gender;
             product.IsFeatured = request.IsFeatured;
             product.Material = request.Material;
+            product.Style = request.Style;
+            product.CollectionId = request.CollectionId;
+            product.BrandId = request.BrandId;
             product.Price = request.Price;
             product.CategoryId = request.CategoryId;
-
 
             _productRepo.Update(product);
             await _productRepo.SaveChangesAsync();

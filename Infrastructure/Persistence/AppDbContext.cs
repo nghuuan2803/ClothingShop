@@ -31,8 +31,8 @@ namespace Infrastructure.Persistence
 
             builder.Entity<Customer>().HasOne<AppUser>().WithOne().HasForeignKey<Customer>(p => p.UserId).OnDelete(DeleteBehavior.Restrict);
             builder.Entity<Order>().HasOne<AppUser>().WithMany().HasForeignKey(p => p.HandlerId).OnDelete(DeleteBehavior.SetNull);
-            builder.Entity<CartItem>().HasKey(p => new { p.CustomerId, p.VariantId });
-            builder.Entity<OrderItem>().HasKey(p => new { p.OrderId, p.VariantId });
+            builder.Entity<CartItem>().HasKey(p => new { p.CustomerId, p.VariantId,p.SizeId });
+            builder.Entity<OrderItem>().HasKey(p => new { p.OrderId, p.VariantId,p.SizeId });
             builder.Entity<Inventory>().HasKey(p => new { p.VariantId, p.SizeId });
             SeedRole(builder);
             SeedColors(builder);

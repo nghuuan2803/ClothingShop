@@ -416,11 +416,12 @@ namespace Infrastructure.Migrations
                 {
                     CustomerId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VariantId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CartItems", x => new { x.CustomerId, x.VariantId });
+                    table.PrimaryKey("PK_CartItems", x => new { x.CustomerId, x.VariantId, x.SizeId });
                     table.ForeignKey(
                         name: "FK_CartItems_Customers_CustomerId",
                         column: x => x.CustomerId,
@@ -431,6 +432,12 @@ namespace Infrastructure.Migrations
                         name: "FK_CartItems_ProductVariants_VariantId",
                         column: x => x.VariantId,
                         principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_CartItems_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -467,12 +474,13 @@ namespace Infrastructure.Migrations
                 {
                     OrderId = table.Column<string>(type: "nvarchar(450)", nullable: false),
                     VariantId = table.Column<int>(type: "int", nullable: false),
+                    SizeId = table.Column<int>(type: "int", nullable: false),
                     Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Quantity = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_OrderItems", x => new { x.OrderId, x.VariantId });
+                    table.PrimaryKey("PK_OrderItems", x => new { x.OrderId, x.VariantId, x.SizeId });
                     table.ForeignKey(
                         name: "FK_OrderItems_Orders_OrderId",
                         column: x => x.OrderId,
@@ -483,6 +491,12 @@ namespace Infrastructure.Migrations
                         name: "FK_OrderItems_ProductVariants_VariantId",
                         column: x => x.VariantId,
                         principalTable: "ProductVariants",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_OrderItems_Sizes_SizeId",
+                        column: x => x.SizeId,
+                        principalTable: "Sizes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -658,6 +672,11 @@ namespace Infrastructure.Migrations
                 filter: "[NormalizedUserName] IS NOT NULL");
 
             migrationBuilder.CreateIndex(
+                name: "IX_CartItems_SizeId",
+                table: "CartItems",
+                column: "SizeId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CartItems_VariantId",
                 table: "CartItems",
                 column: "VariantId");
@@ -677,6 +696,11 @@ namespace Infrastructure.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Inventories_SizeId",
                 table: "Inventories",
+                column: "SizeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_OrderItems_SizeId",
+                table: "OrderItems",
                 column: "SizeId");
 
             migrationBuilder.CreateIndex(
@@ -754,13 +778,13 @@ namespace Infrastructure.Migrations
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
-                name: "Sizes");
-
-            migrationBuilder.DropTable(
                 name: "Orders");
 
             migrationBuilder.DropTable(
                 name: "ProductVariants");
+
+            migrationBuilder.DropTable(
+                name: "Sizes");
 
             migrationBuilder.DropTable(
                 name: "Customers");

@@ -73,6 +73,8 @@ namespace Infrastructure
             services.AddScoped<IAuthService, AuthService>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
+            services.AddScoped<IRepository<ProductVariant>, VariantRepository>();
+            services.AddScoped<IRepository<CartItem>, CartRepository>();
 
             return services;
         }

@@ -1,0 +1,30 @@
+﻿TH1: người dùng chưa có tài khoản và thêm sản phẩm vào giỏ, sau đó đăng ký:
+- thêm vào giỏ 
+-> tạo guestId mới nếu chưa có ở client 
+-> send request -> backend tạo customer 
+-> lưu cartitem của guest -> trả response
+
+- đăng ký 
+-> gửi guestId kèm các thông tin cá nhân 
+-> backend tạo user 
+-> tìm customer với guestId
+-> map user và customer
+-> trả auth response
+
+TH2: người dùng đã có tài khoản nhưng chưa đăng nhập trên thiết bị, thêm sản phẩm vào giỏ, sau đó đăng nhập:
+- thêm vào giỏ
+-> tạo guestId mới ở client
+-> send request 
+-> backend tạo customer
+-> lưu cartitem của guest
+-> trả response
+
+- đăng nhập
+-> gửi request đăng nhập kèm guestId
+-> backend tìm user
+-> tìm customer đang map với user
+-> tìm các cartitem của guestId
+-> cập nhật customerId của cartitem thành id của customer đã map với user
+-> trả về auth response kèm customerId
+-> client cập nhật guestId thành customerId
+-> dùng customerId mới để gọi request lấy thông tin giỏ hàng
